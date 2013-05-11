@@ -66,7 +66,7 @@ Configuring the watchlist
 =========================
 
 The `watchlist` in the `config.ini` is processed from top-down. Each
-line has subscription type (`watching`, `not-watching` or `ignoring`),
+line has subscription type (`watching` or `not-watching`),
 followed by colon, followed by a regular expression matching one or
 many repository names (`principal/repository-name`).
 
@@ -79,10 +79,6 @@ many repository names (`principal/repository-name`).
 `not-watching`
     You only receive notifications for discussions in which you
     participate or are @mentioned.
-
-`ignoring`
-    You do not receive any notifications for discussions in this
-    repository.
 
 
 **Matching repositories with regular expressions**

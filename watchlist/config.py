@@ -58,7 +58,7 @@ class Config(object):
         self.watchlist = []
         watchlist_value = config.get('watchlist', 'watchlist')
 
-        item_xpr = re.compile('^(watching|not-watching|ignoring): *(\S*)$')
+        item_xpr = re.compile('^(watching|not-watching): *(\S*)$')
         for line in map(str.strip, watchlist_value.strip().split('\n')):
             match = item_xpr.match(line)
             if not match:

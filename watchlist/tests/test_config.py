@@ -102,7 +102,7 @@ class TestConfig(TestCase):
                         'watchlist =',
                         '  watching: foo/*',
                         '  watching: bar/bar',
-                        '  ignoring: bar/*')))
+                        '  not-watching: bar/*')))
             configfile.file.flush()
             config.load(configfile.name)
 
@@ -112,7 +112,7 @@ class TestConfig(TestCase):
         self.assertEquals(
             [('watching', 'foo/*'),
              ('watching', 'bar/bar'),
-             ('ignoring', 'bar/*')],
+             ('not-watching', 'bar/*')],
             config.watchlist, 'Unexpected watchlist in config')
 
     def test_configuration_error_when_watchlist_item_is_invalid(self):
@@ -124,7 +124,7 @@ class TestConfig(TestCase):
                         'watchlist =',
                         '  watching: foo/*',
                         '  bar/bar',
-                        '  ignoring: bar/*')))
+                        '  not-watching: bar/*')))
             configfile.file.flush()
 
             with self.assertRaises(ConfigurationError) as cm:
