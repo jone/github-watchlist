@@ -30,16 +30,16 @@ Install with `zc.buildout <http://pypi.python.org/pypi/zc.buildout>`_:
     $ python bootstrap.py
     $ bin/buildout
 
-Use `bin/setup` to automatically create and configure a `GitHub OAuth
-<http://developer.github.com/v3/oauth/>`_ token:
+Use `bin/initialize` to automatically create and configure a `GitHub
+OAuth <http://developer.github.com/v3/oauth/>`_ token:
 
 .. code:: bash
 
-    $ bin/setup
+    $ bin/initialize
 
-`bin/setup` creates a `config.ini` file, containing your login / oAuth
-token and your watch configuration. Edit the `config.ini` to configure
-which repositories to watch.
+`bin/initialize` creates a `config.ini` file, containing your login /
+oAuth token and your watch configuration. Edit the `config.ini` to
+configure which repositories to watch.
 
 Example `config.ini`:
 
