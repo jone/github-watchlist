@@ -3,6 +3,7 @@
 .installed.cfg
 README.html
 bin/
+config.ini
 develop-eggs/
 dist/
 eggs/

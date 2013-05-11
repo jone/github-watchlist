@@ -30,10 +30,15 @@ setup(name='github-watchlist',
       zip_safe=False,
 
       install_requires=[
-        'setuptools',
+        'argparse',
         'pygithub3',
+        'setuptools',
         ],
 
       tests_require=tests_require,
       extras_require={'tests': tests_require},
-      )
+
+      entry_points = {
+        'console_scripts' : [
+            'initalize = watchlist.initialize:initalize_command',
+            ]})

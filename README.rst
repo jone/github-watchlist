@@ -54,11 +54,11 @@ Example `config.ini`:
         not-watching:  collective/.*
         watching:      jone/.*
 
-Run the `bin/configure` script:
+Run the `bin/update-watchlist` script:
 
 .. code:: bash
 
-    $ bin/configure
+    $ bin/update-watchlist
     XXXXXXXXXXXXXXXXXXXXXXX
 
 
@@ -111,8 +111,8 @@ the bottom.
 Command line options
 ====================
 
-The `bin/configure` script can be run in interactive-mode as well as
-in batch-mode, useful for running it with a cronjob.
+The `bin/update-watchlist` script can be run in interactive-mode as
+well as in batch-mode, useful for running it with a cronjob.
 
 
 
