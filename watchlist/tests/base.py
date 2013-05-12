@@ -3,6 +3,8 @@ from mocker import ARGS
 from mocker import KWARGS
 from mocker import MockerTestCase
 from requests import Response
+from watchlist.github import make_github_url
+from watchlist.tests import github
 
 
 HTTP_REASONS = {
@@ -49,6 +51,14 @@ HTTP_REASONS = {
     }
 
 
+class StubConfig(object):
+
+    def __init__(self, user=None, token=None, watchlist=None):
+        self.github_login = user or 'john'
+        self.github_oauth_token = token or '123asdfX'
+        self.watchlist = []
+
+
 class RequestsResponseStub(Response):
     """Stubs responses of the `requests` lib.
     """
@@ -83,3 +93,51 @@ class GithubMockTestCase(MockerTestCase):
             'requests.sessions.Session.request')
         self.expect(req_method(ARGS, KWARGS)).call(
             self.request).count(0, None)
+
+        self.get_request = self.mocker.replace('requests.get')
+
+        self.github_user_orgs = set([])
+        self.github_repos = {}
+        self.github_subscriptions = set([])
+
+    def given_user_is_in_organisations(self, *organisations):
+        self.github_user_orgs.update(organisations)
+
+    def given_repositories(self, *repositories):
+        for full_name in repositories:
+            login, name = full_name.split('/')
+
+            if login not in self.github_repos:
+                self.github_repos[login] = []
+
+            self.github_repos[login].append(full_name)
+
+    def given_subscriptions(self, *repositories):
+        self.github_subscriptions.update(repositories)
+
+    def reckon_github_read_requests(self):
+        self.stub_github_request(
+            'user/subscriptions', github.repositories(self.github_subscriptions))
+
+        self.stub_github_request(
+            'user/orgs', github.organisations(self.github_user_orgs))
+
+        for login, repositories in self.github_repos.items():
+            if login == 'john.doe':
+                path = 'user/repos'
+            else:
+                path = 'orgs/%s/repos' % login
+
+            self.stub_github_request(path, github.repositories(repositories))
+
+    def stub_github_request(self, path, response_text, method='get', config=None):
+        url = make_github_url(path, StubConfig())
+        response = RequestsResponseStub(text=response_text)
+
+        if method == 'get':
+            self.get_request(url)
+        else:
+            self.request(method=method, url=url)
+
+        self.mocker.result(response)
+        self.mocker.count(0, None)

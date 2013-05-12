@@ -1,3 +1,5 @@
+import json
+
 
 def authorization_token_data(token):
     return {
@@ -17,3 +19,23 @@ def authorization_token_data(token):
             "notifications"
             ]
         }
+
+def repositories(repositories):
+    result = []
+    for full_name in repositories:
+        result.append(repository(full_name))
+    return json.dumps(result)
+
+
+def repository(full_name):
+    login, name = full_name.split('/')
+    return {'name': name,
+            'full_name': full_name,
+            'owner': {'login': login,}}
+
+
+def organisations(organisations):
+    result = []
+    for name in organisations:
+        result.append({"login": name})
+    return json.dumps(result)
