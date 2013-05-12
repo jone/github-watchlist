@@ -28,7 +28,8 @@ class UpdateStrategy(object):
         assert type_ in ('watching', 'not-watching'), \
             'Unexpected expression type: %s' % type_
 
-        for reponame, watching in subscriptions.items():
+        for reponame, repoconfig in subscriptions.items():
+            watching = repoconfig['watching']
             if not xpr.match(reponame):
                 continue
 
@@ -47,7 +48,8 @@ class UpdateStrategy(object):
             del subscriptions[reponame]
 
     def keep_unmatched(self, subscriptions, result):
-        for reponame, watching in subscriptions.items():
+        for reponame, repoconfig in subscriptions.items():
+            watching = repoconfig['watching']
             if watching:
                 result['keep-watching'].append(reponame)
             else:

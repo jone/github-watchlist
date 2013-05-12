@@ -9,9 +9,9 @@ class TestUpdateStrategy(TestCase):
                                        ('not-watching', 'foo/.*'),
                                        ('watching', '.*')))
 
-        subscriptions = {'foo/foo': False,
-                         'foo/bar': False,
-                         'bar/bar': False}
+        subscriptions = {'foo/foo': {'watching': False},
+                         'foo/bar': {'watching': False},
+                         'bar/bar': {'watching': False}}
         self.assertEquals({'watch': ['bar/bar', 'foo/bar'],
                            'unwatch': [],
                            'keep-watching': [],
@@ -23,9 +23,9 @@ class TestUpdateStrategy(TestCase):
                                        ('not-watching', 'foo/.*'),
                                        ('watching', '.*')))
 
-        subscriptions = {'foo/foo': True,
-                         'foo/bar': True,
-                         'bar/bar': True}
+        subscriptions = {'foo/foo': {'watching': True},
+                         'foo/bar': {'watching': True},
+                         'bar/bar': {'watching': True}}
         self.assertEquals({'watch': [],
                            'unwatch': ['foo/foo'],
                            'keep-watching': ['bar/bar', 'foo/bar'],
@@ -36,9 +36,9 @@ class TestUpdateStrategy(TestCase):
         config = StubConfig(watchlist=(('watching', '.*'),
                                        ('not-watching', '.*')))
 
-        subscriptions = {'foo/foo': False,
-                         'foo/bar': False,
-                         'bar/bar': False}
+        subscriptions = {'foo/foo': {'watching': False},
+                         'foo/bar': {'watching': False},
+                         'bar/bar': {'watching': False}}
         self.assertEquals({'watch': ['bar/bar', 'foo/bar', 'foo/foo'],
                            'unwatch': [],
                            'keep-watching': [],
@@ -48,10 +48,10 @@ class TestUpdateStrategy(TestCase):
     def test_unmatched_repositories_are_kept(self):
         config = StubConfig(watchlist=(('watching', 'foo/.*'),))
 
-        subscriptions = {'foo/foo': False,
-                         'foo/bar': False,
-                         'bar/foo': True,
-                         'bar/bar': False}
+        subscriptions = {'foo/foo': {'watching': False},
+                         'foo/bar': {'watching': False},
+                         'bar/foo': {'watching': True},
+                         'bar/bar': {'watching': False}}
         self.assertEquals({'watch': ['foo/bar', 'foo/foo'],
                            'unwatch': [],
                            'keep-watching': ['bar/foo'],
