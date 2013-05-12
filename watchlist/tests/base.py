@@ -131,9 +131,11 @@ class GithubMockTestCase(MockerTestCase):
             self.stub_github_request(path, github.repositories(repositories))
 
     def stub_github_request(self, path, response_text, method='get', config=None,
+                            response_headers=None, response_status_code=200,
                             payload=None, count=False):
         url = make_github_url(path, StubConfig())
-        response = RequestsResponseStub(text=response_text)
+        response = RequestsResponseStub(text=response_text, headers=response_headers,
+                                        status_code=response_status_code)
 
         kwargs = {}
         if payload:
