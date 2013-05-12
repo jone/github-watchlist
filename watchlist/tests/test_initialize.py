@@ -65,7 +65,12 @@ class TestInitializeWatchlistConfiguration(OAuthCreationTestCase):
         super(TestInitializeWatchlistConfiguration, self).setUp()
 
         self.raw_input_mock = self.mocker.replace(raw_input)
+        self.expect(self.raw_input_mock(ANY)).throw(
+            AssertionError('Unexpected raw_input call')).count(0, None)
+
         self.getpass_mock = self.mocker.replace('getpass.getpass')
+        self.expect(self.getpass_mock()).throw(
+            AssertionError('Unexpected getpass call')).count(0, None)
 
     def test_integration_create_watchlist_configuration(self):
         with self.mocker.order():
