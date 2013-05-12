@@ -1,4 +1,5 @@
 from requests import HTTPError
+from watchlist.config import add_config_argument_to_argparser
 import argparse
 import getpass
 import json
@@ -129,15 +130,7 @@ class InitializeWatchlistConfiguration(object):
 
 def initalize_command():
     parser = argparse.ArgumentParser(description='Setup github watchlist.')
-
-    default_config_file_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), '..', 'config.ini'))
-
-    parser.add_argument(
-        '-c', '--configfile', dest='configfile',
-        help='Path to the config file (Default: %s)' % default_config_file_path,
-        default=default_config_file_path)
-
+    add_config_argument_to_argparser(parser)
     args = parser.parse_args()
 
     initializer = InitializeWatchlistConfiguration()

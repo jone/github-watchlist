@@ -1,4 +1,5 @@
 import ConfigParser
+import os.path
 import re
 
 
@@ -65,3 +66,13 @@ class Config(object):
                 raise ConfigurationError('Unexpected format of watchlist item: %s' % (
                         line))
             self.watchlist.append(match.groups())
+
+
+def add_config_argument_to_argparser(argparser):
+    default_config_file_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '..', 'config.ini'))
+
+    argparser.add_argument(
+        '-c', '--configfile', dest='configfile',
+        help='Path to the config file (Default: %s)' % default_config_file_path,
+        default=default_config_file_path)
