@@ -56,12 +56,7 @@ Example `config.ini`:
         not-watching:  collective/.*
         watching:      jone/.*
 
-Run the `bin/update-watchlist` script:
-
-.. code:: bash
-
-    $ bin/update-watchlist
-    XXXXXXXXXXXXXXXXXXXXXXX
+Then run the `bin/update-watchlist` script.
 
 
 Configuring the watchlist
@@ -108,12 +103,55 @@ Repositories where you do not participate are not manageable with this
 script, the subscription for those repositories is not changed.
 
 
-Command line options
-====================
+Watchlist updater
+=================
 
-The `bin/update-watchlist` script can be run in interactive-mode as
-well as in batch-mode, useful for running it with a cronjob.
+The `bin/update-watchlist` script gives applies your configuration to
+your repositories and your current watches and shows a summary of
+changes you need to confirm:
 
+.. code:: bash
+
+    $ ./bin/update-watchlist --help
+    usage: update-watchlist [-h] [-c CONFIGFILE] [-l LOGFILE] [-C]
+
+    Setup github watchlist.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -c CONFIGFILE, --configfile CONFIGFILE
+                            Path to the config file (Default:
+                            /Users/jone/projects/packages/github-
+                            watchlist/config.ini)
+      -l LOGFILE, --log LOGFILE
+                            Write changed subscriptions into a logfile.
+      -C, --confirmed       Update the subscriptions without user confirmation.
+                            This is useful when running as cronjob.
+
+
+.. code:: bash
+
+    $ ./bin/update-watchlist
+    NO SUBSCRIPTION CHANGES:
+     - keep not watching: collective/ArchGenXML
+     - keep watching: jone/github-watchlist
+
+    SUBSCRIPTION CHANGES:
+     - add subscription: 4teamwork/ftw.lawgiver
+     - remove subscription: collective/collective.dancing
+
+    SUMMARY:
+     - Keep watching: 1
+     - Keep not watching: 1
+     - Start watching: 1
+     - Stop watching: 1
+
+    Continue updating subscriptions? [Yes/No]: yes
+    INFO create subscription: 4teamwork/ftw.lawgiver
+    INFO delete subscription: plone/collective.dancing
+
+Using the `--confirmed` option you can disable the confirmation prompt
+so that it can be hooked up with a cronjob.
 
 
 License
@@ -125,3 +163,8 @@ License
 retain this notice you can do whatever you want with this stuff. If we
 meet some day, and you think this stuff is worth it, you can buy me a
 beer in return.
+
+
+.. image:: https://cruel-carlota.pagodabox.com/d1d1c2459158d8c198c361c5b8ea74bd
+   :alt: githalytics.com
+   :target: http://githalytics.com/jone/github-watchlist
