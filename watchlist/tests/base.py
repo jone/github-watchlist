@@ -130,14 +130,24 @@ class GithubMockTestCase(MockerTestCase):
 
             self.stub_github_request(path, github.repositories(repositories))
 
-    def stub_github_request(self, path, response_text, method='get', config=None):
+    def stub_github_request(self, path, response_text, method='get', config=None,
+                            payload=None, count=False):
         url = make_github_url(path, StubConfig())
         response = RequestsResponseStub(text=response_text)
 
+        kwargs = {}
+        if payload:
+            kwargs['data'] = payload
+
         if method == 'get':
-            self.get_request(url)
+            self.get_request(url, **kwargs)
         else:
-            self.request(method=method, url=url)
+            self.request(method=method, url=url, **kwargs)
 
         self.mocker.result(response)
-        self.mocker.count(0, None)
+        if not count:
+            self.mocker.count(0, None)
+
+    def mock_github_request(self, *args, **kwargs):
+        kwargs['count'] = True
+        return self.stub_github_request(*args, **kwargs)

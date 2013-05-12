@@ -39,3 +39,12 @@ def organisations(organisations):
     for name in organisations:
         result.append({"login": name})
     return json.dumps(result)
+
+
+def subscription(reponame):
+    return json.dumps({
+            "subscribed": True,
+            "ignored": False,
+            "reason": None,
+            "created_at": "2013-05-12T11:25:02Z",
+            })

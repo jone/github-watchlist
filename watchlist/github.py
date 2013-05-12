@@ -12,6 +12,20 @@ def get(path, config):
     return json.loads(response.text)
 
 
+def put(path, config, payload):
+    url = make_github_url(path, config)
+    response = requests.put(url, data=payload)
+    response.raise_for_status()
+    return json.loads(response.text)
+
+
+def delete(path, config):
+    url = make_github_url(path, config)
+    response = requests.delete(url)
+    response.raise_for_status()
+    return response
+
+
 def make_github_url(path, config):
     url = GITHUB_API + path.lstrip('/')
     if '?' in url:
