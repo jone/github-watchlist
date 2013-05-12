@@ -68,7 +68,7 @@ class RequestsResponseStub(Response):
         super(RequestsResponseStub, self).__init__()
         self.status_code = status_code
         self.raw = StringIO(text)
-        self.raw.reason = reason or HTTP_REASONS[status_code]
+        self.reason = reason or HTTP_REASONS[status_code]
 
         default_headers = {
             'x-ratelimit-remaining': -1,
