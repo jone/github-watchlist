@@ -101,9 +101,11 @@ the bottom.
 
 **Witch repositories are processed?**
 
-- All repositories watched by you
-- All your repositories
-- All repositories of organisations you participate in
+All your repositories and all repositories of organisations you
+participate in are manageable with this script.
+
+Repositories where you do not participate are not manageable with this
+script, the subscription for those repositories is not changed.
 
 
 Command line options
