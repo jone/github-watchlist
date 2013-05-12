@@ -14,6 +14,7 @@ The `github-watchlist` script lets you configure your watched
 repositories with patterns. It can easily be set up as a cronjob once
 you have figured out a good configuration.
 
+.. image:: https://travis-ci.org/jone/github-watchlist.png?branch=master
 
 .. contents:: Table of Contents
 
