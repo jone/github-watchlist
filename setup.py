@@ -41,4 +41,5 @@ setup(name='github-watchlist',
       entry_points = {
         'console_scripts' : [
             'initalize = watchlist.initialize:initalize_command',
+            'update-watchlist = watchlist.command:update_command',
             ]})

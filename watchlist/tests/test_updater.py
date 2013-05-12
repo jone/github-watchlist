@@ -1,8 +1,6 @@
-from watchlist.tests import github
 from watchlist.tests.base import GithubMockTestCase
 from watchlist.tests.base import StubConfig
 from watchlist.updater import SubscriptionsUpdater
-import json
 
 
 class TestSubscriptionsUpdater(GithubMockTestCase):
@@ -30,15 +28,3 @@ class TestSubscriptionsUpdater(GithubMockTestCase):
 
         updater = SubscriptionsUpdater(StubConfig())
         updater.update(data)
-
-    def expect_subscription_created(self, reponame):
-        watch_payload = json.dumps({'subscribed': True, 'ignored': False})
-
-        self.mock_github_request(
-            '%s/subscription' % reponame,
-            github.subscription(reponame),
-            method='put',
-            payload=watch_payload)
-
-    def expect_subscription_deleted(self, reponame):
-        self.mock_github_request('%s/subscription' % reponame, '', method='delete')

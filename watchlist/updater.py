@@ -1,5 +1,6 @@
 from watchlist import github
 import json
+import logging
 
 
 class SubscriptionsUpdater(object):
@@ -15,9 +16,11 @@ class SubscriptionsUpdater(object):
         watch_payload = json.dumps({'subscribed': True, 'ignored': False})
 
         for reponame in repositories:
+            logging.info('create subscription: %s' % reponame)
             github.put('%s/subscription' % reponame, self.config,
                        payload=watch_payload)
 
     def delete_subscriptions(self, repositories):
         for reponame in repositories:
+            logging.info('delete subscription: %s' % reponame)
             github.delete('%s/subscription' % reponame, self.config)

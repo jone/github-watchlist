@@ -5,6 +5,7 @@ from mocker import MockerTestCase
 from requests import Response
 from watchlist.github import make_github_url
 from watchlist.tests import github
+import json
 
 
 HTTP_REASONS = {
@@ -129,6 +130,18 @@ class GithubMockTestCase(MockerTestCase):
                 path = 'orgs/%s/repos' % login
 
             self.stub_github_request(path, github.repositories(repositories))
+
+    def expect_subscription_created(self, reponame):
+        watch_payload = json.dumps({'subscribed': True, 'ignored': False})
+
+        self.mock_github_request(
+            '%s/subscription' % reponame,
+            github.subscription(reponame),
+            method='put',
+            payload=watch_payload)
+
+    def expect_subscription_deleted(self, reponame):
+        self.mock_github_request('%s/subscription' % reponame, '', method='delete')
 
     def stub_github_request(self, path, response_text, method='get', config=None,
                             response_headers=None, response_status_code=200,
