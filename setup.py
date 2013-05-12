@@ -31,6 +31,7 @@ setup(name='github-watchlist',
 
       install_requires=[
         'argparse',
+        'requests',
         'setuptools',
         ],
 
