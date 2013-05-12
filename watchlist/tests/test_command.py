@@ -55,11 +55,16 @@ class TestUpdateCommand(GithubMockTestCase):
 
     def test_confirm_subscription_changes_with_no(self):
         self.type_when_asked('no')
+
+        # python2.6 does not raise SystemExit
+        exit = self.mocker.replace('sys.exit')
+        self.expect(exit(1)).throw(SystemExit())
+
         self.mocker.replay()
 
         cmd = UpdateCommand(StubConfig())
         with self.assertRaises(SystemExit):
-            self.assertTrue(cmd.confirm_subscription_changes())
+            cmd.confirm_subscription_changes()
 
     def type_when_asked(self, answer, prompt=ANY):
         self.expect(self.raw_input_mock(prompt)).result(answer)
