@@ -145,3 +145,27 @@ class TestConfig(TestCase):
             configfile.file.flush()
 
             Config().load(configfile.name)
+
+    def test_empty_lines_and_comments_in_watchlist(self):
+        config = Config()
+
+        with NamedTemporaryFile() as configfile:
+            configfile.write('\n'.join((
+                        '[watchlist]',
+                        'github-login = foo',
+                        'github-oauth-token = bar',
+                        'watchlist =',
+                        '  watching: foo/*',
+                        '',
+                        '  watching: bar/*',
+                        '# comment',
+                        '  watching: baz/*',
+                        '')))
+            configfile.file.flush()
+            config.load(configfile.name)
+
+        self.assertEquals(
+            [('watching', 'foo/*'),
+             ('watching', 'bar/*'),
+             ('watching', 'baz/*')],
+            config.watchlist, 'Unexpected watchlist in config')
