@@ -133,3 +133,15 @@ class TestConfig(TestCase):
             self.assertEquals(
                 'Unexpected format of watchlist item: bar/bar',
                 str(cm.exception))
+
+    def test_no_configuration_error_when_watchlist_empty(self):
+        with NamedTemporaryFile() as configfile:
+            configfile.write('\n'.join((
+                        '[watchlist]',
+                        'github-login = foo',
+                        'github-oauth-token = bar',
+                        'watchlist =',
+                        '')))
+            configfile.file.flush()
+
+            Config().load(configfile.name)

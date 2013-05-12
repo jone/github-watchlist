@@ -58,9 +58,13 @@ class Config(object):
 
         self.watchlist = []
         watchlist_value = config.get('watchlist', 'watchlist')
+        if watchlist_value.strip():
+            watchlist_items = map(str.strip, watchlist_value.strip().split('\n'))
+        else:
+            watchlist_items = []
 
         item_xpr = re.compile('^(watching|not-watching): *(\S*)$')
-        for line in map(str.strip, watchlist_value.strip().split('\n')):
+        for line in watchlist_items:
             match = item_xpr.match(line)
             if not match:
                 raise ConfigurationError('Unexpected format of watchlist item: %s' % (
