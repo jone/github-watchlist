@@ -15,6 +15,7 @@ repositories with patterns. It can easily be set up as a cronjob once
 you have figured out a good configuration.
 
 .. image:: https://travis-ci.org/jone/github-watchlist.png?branch=master
+   :target: https://travis-ci.org/jone/github-watchlist
 
 .. contents:: Table of Contents
 
