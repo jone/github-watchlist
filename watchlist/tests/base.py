@@ -135,13 +135,14 @@ class GithubMockTestCase(MockerTestCase):
         watch_payload = json.dumps({'subscribed': True, 'ignored': False})
 
         self.mock_github_request(
-            '%s/subscription' % reponame,
+            'repos/%s/subscription' % reponame,
             github.subscription(reponame),
             method='put',
             payload=watch_payload)
 
     def expect_subscription_deleted(self, reponame):
-        self.mock_github_request('%s/subscription' % reponame, '', method='delete')
+        self.mock_github_request('repos/%s/subscription' % reponame, '',
+                                 method='delete')
 
     def stub_github_request(self, path, response_text, method='get', config=None,
                             response_headers=None, response_status_code=200,

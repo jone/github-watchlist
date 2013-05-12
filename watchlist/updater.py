@@ -17,10 +17,10 @@ class SubscriptionsUpdater(object):
 
         for reponame in repositories:
             logging.info('create subscription: %s' % reponame)
-            github.put('%s/subscription' % reponame, self.config,
+            github.put('repos/%s/subscription' % reponame, self.config,
                        payload=watch_payload)
 
     def delete_subscriptions(self, repositories):
         for reponame in repositories:
             logging.info('delete subscription: %s' % reponame)
-            github.delete('%s/subscription' % reponame, self.config)
+            github.delete('repos/%s/subscription' % reponame, self.config)
