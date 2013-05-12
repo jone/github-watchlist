@@ -102,6 +102,28 @@ class TestInitializeWatchlistConfiguration(OAuthCreationTestCase):
             if os.path.exists(path):
                 os.unlink(path)
 
+    def test_integration_asked_for_oauth_token_on_empty_password(self):
+        with self.mocker.order():
+            self.type_when_asked('john.doe', prompt='Your GitHub username: ')
+            self.type_when_asked('', prompt='Your GitHUb password: ', hidden=True)
+            self.type_when_asked('94a08da1fecbb6e8b46990538c7b50b2',
+                                 prompt='GitHub OAuth token: ')
+
+        self.mocker.replay()
+
+        path = os.path.join(tempfile.gettempdir(), 'watchlist-config.ini')
+        try:
+            InitializeWatchlistConfiguration()(path)
+
+            configfile = open(path).read()
+
+            self.assertIn('github-oauth-token = 94a08da1fecbb6e8b46990538c7b50b2',
+                          configfile,
+                          'Missing or wrong github-oauth-token in config file')
+
+        finally:
+            if os.path.exists(path):
+                os.unlink(path)
 
     def test_ask_for_login(self):
         self.type_when_asked('jone')

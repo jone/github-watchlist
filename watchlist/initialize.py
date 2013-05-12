@@ -33,7 +33,7 @@ class InitializeWatchlistConfiguration(object):
             try:
                 password = self.ask_for_github_password()
 
-                if password is None:
+                if not password:
                     token = self.ask_for_oauth_token(login)
                 else:
                     token = OAuthTokenCreator().create_token(login, password)
