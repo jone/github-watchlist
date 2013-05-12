@@ -7,7 +7,7 @@
 
 When participanting in large organisations on GitHub and watching all
 repositories it's getting noisy. Although the watched repositories are
-`configureable <https://GitHub.com/watching>`_ it is time consuming to
+`configureable <https://github.com/watching>`_ it is time consuming to
 configure hundreds of repositories.
 
 The `github-watchlist` script lets you configure your watched
@@ -27,7 +27,7 @@ Install with `zc.buildout <http://pypi.python.org/pypi/zc.buildout>`_:
 
 .. code:: bash
 
-    $ git clone git://GitHub.com/jone/github-watchlist
+    $ git clone git://github.com/jone/github-watchlist
     $ cd github-watchlist
     $ python bootstrap.py
     $ bin/buildout
