@@ -56,7 +56,7 @@ class StubConfig(object):
     def __init__(self, user=None, token=None, watchlist=None):
         self.github_login = user or 'john'
         self.github_oauth_token = token or '123asdfX'
-        self.watchlist = []
+        self.watchlist = watchlist or []
 
 
 class RequestsResponseStub(Response):
