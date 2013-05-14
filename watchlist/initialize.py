@@ -128,7 +128,7 @@ class InitializeWatchlistConfiguration(object):
         print 'When finished, run bin/update-watchlist'
 
 
-def initalize_command():
+def initialize_command():
     parser = argparse.ArgumentParser(description='Setup github watchlist.')
     add_config_argument_to_argparser(parser)
     args = parser.parse_args()
