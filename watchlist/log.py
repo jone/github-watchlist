@@ -7,6 +7,7 @@ def add_log_argument_to_argparse(argparser):
 
 
 def setup_logging(args):
+    disable_requests_logging()
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
     if args.logfile:
@@ -14,3 +15,11 @@ def setup_logging(args):
         formatter = logging.Formatter('%(asctime)-15s %(levelname)s %(message)s')
         handler.setFormatter(formatter)
         logging.root.addHandler(handler)
+
+
+def disable_requests_logging():
+    """Disables logging "INFO Starting new HTTPS connection (1): api.github.com"
+    by requests' urllib3 package.
+    """
+    from requests.packages.urllib3 import connectionpool
+    connectionpool.log.setLevel(logging.WARNING)
