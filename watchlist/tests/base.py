@@ -60,6 +60,12 @@ class StubConfig(object):
         self.watchlist = watchlist or []
 
 
+class RawResponse(StringIO):
+
+    def read(self, amt=None, decode_content=None, cache_content=False):
+        return StringIO.read(self)
+
+
 class RequestsResponseStub(Response):
     """Stubs responses of the `requests` lib.
     """
@@ -68,7 +74,7 @@ class RequestsResponseStub(Response):
                  reason=None):
         super(RequestsResponseStub, self).__init__()
         self.status_code = status_code
-        self.raw = StringIO(text)
+        self.raw = RawResponse(text)
         self.reason = reason or HTTP_REASONS[status_code]
 
         default_headers = {
