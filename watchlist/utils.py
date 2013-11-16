@@ -1,3 +1,5 @@
+import os
+
 
 def confirmation_prompt(prompt):
     prompt_text = '%s [Yes/No]: ' % prompt
@@ -10,3 +12,7 @@ def confirmation_prompt(prompt):
     else:
         print 'Please answer with "yes" or "no"'
         return confirmation_prompt(prompt)
+
+
+def verbose():
+    return bool(os.environ.get('VERBOSE', False))

@@ -1,3 +1,4 @@
+from watchlist.utils import verbose
 import json
 import re
 import requests
@@ -13,6 +14,8 @@ def get(path, config):
 
 def put(path, config, payload):
     url = make_github_url(path, config)
+    if verbose():
+        print 'PUT REQUEST', url
     response = requests.put(url, data=payload)
     response.raise_for_status()
     return json.loads(response.text)
@@ -20,12 +23,16 @@ def put(path, config, payload):
 
 def delete(path, config):
     url = make_github_url(path, config)
+    if verbose():
+        print 'DELETE REQUEST', url
     response = requests.delete(url)
     response.raise_for_status()
     return response
 
 
 def _get_follow_pagingation(url, config):
+    if verbose():
+        print 'GET REQUEST', url
     response = requests.get(url)
     response.raise_for_status()
     data = json.loads(response.text)

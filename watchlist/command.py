@@ -7,6 +7,7 @@ from watchlist.strategy import UpdateStrategy
 from watchlist.updater import SubscriptionsUpdater
 from watchlist.utils import confirmation_prompt
 import argparse
+import os
 import sys
 
 
@@ -74,9 +75,16 @@ def update_command():
         dest='debug',
         help='Start post mortem debugger on python exceptions.')
 
+    parser.add_argument(
+        '-v', '--verbose', action='store_true',
+        dest='verbose',
+        help='Print more verbose informations about whats happening.')
+
     args = parser.parse_args()
     if args.debug:
         sys.excepthook = post_mortem_debugging_hook
+    if args.verbose:
+        os.environ['VERBOSE'] = '1'
     setup_logging(args)
 
     config = Config()
