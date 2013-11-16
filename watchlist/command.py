@@ -69,10 +69,31 @@ def update_command():
         help='Update the subscriptions without user confirmation.'
         ' This is useful when running as cronjob.')
 
+    parser.add_argument(
+        '-D', '--debug', action='store_true',
+        dest='debug',
+        help='Start post mortem debugger on python exceptions.')
+
     args = parser.parse_args()
+    if args.debug:
+        sys.excepthook = post_mortem_debugging_hook
     setup_logging(args)
 
     config = Config()
     config.load(args.configfile)
 
     UpdateCommand(config)(confirmed=args.confirmed)
+
+
+def post_mortem_debugging_hook(type, value, tb):
+    if hasattr(sys, 'ps1') or not sys.stderr.isatty():
+        # we are in interactive mode or we don't have a tty-like
+        # device, so we call the default hook
+        sys.__excepthook__(type, value, tb)
+    else:
+        import traceback, pdb
+        # we are NOT in interactive mode, print the exception...
+        traceback.print_exception(type, value, tb)
+        print
+        # ...then start the debugger in post-mortem mode.
+        pdb.pm()
