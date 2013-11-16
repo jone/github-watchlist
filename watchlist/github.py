@@ -60,6 +60,8 @@ def make_github_url(path, config):
 
 
 def add_access_token_to_url(url, config):
+    if 'access_token=' in url:
+        return url
     if '?' in url:
         url += '&access_token=%s' % config.github_oauth_token
     else:
