@@ -1,3 +1,4 @@
+from datetime import datetime
 from requests import HTTPError
 from watchlist.config import add_config_argument_to_argparser
 import argparse
@@ -17,6 +18,15 @@ class OAuthTokenCreator(object):
         response = requests.post('https://api.github.com/authorizations',
                                  auth=(username, password),
                                  data=json.dumps(request_data))
+
+        if response.status_code == 422:
+            # It seems that there is already a token with the same note.
+            # For not breaking anything we just add a new token with
+            # the timestamp in the note.
+            request_data['note'] += ' ' + datetime.now().isoformat()
+            response = requests.post('https://api.github.com/authorizations',
+                                     auth=(username, password),
+                                     data=json.dumps(request_data))
 
         response.raise_for_status()
         response_data = json.loads(response.text)
