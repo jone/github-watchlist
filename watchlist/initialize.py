@@ -95,7 +95,7 @@ class InitializeWatchlistConfiguration(object):
                 'for the token if you do not enter a password and just hit enter.',
                 ''))
 
-        return getpass.getpass('Your GitHUb password: ')
+        return getpass.getpass('Your GitHub password: ')
 
     def ask_for_oauth_token(self, login):
         print '\n'.join((

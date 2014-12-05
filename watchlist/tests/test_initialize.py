@@ -75,13 +75,13 @@ class TestInitializeWatchlistConfiguration(OAuthCreationTestCase):
     def test_integration_create_watchlist_configuration(self):
         with self.mocker.order():
             self.type_when_asked('john.doe', prompt='Your GitHub username: ')
-            self.type_when_asked('wrong-password', prompt='Your GitHUb password: ',
+            self.type_when_asked('wrong-password', prompt='Your GitHub password: ',
                                  hidden=True)
 
             self.expect_unauthorized_exception_with_wrong_credentials(
                 username='john.doe', password='wrong-password')
 
-            self.type_when_asked('correct-password', prompt='Your GitHUb password: ',
+            self.type_when_asked('correct-password', prompt='Your GitHub password: ',
                                  hidden=True)
 
             self.expect_creates_github_authorization_token(
@@ -105,7 +105,7 @@ class TestInitializeWatchlistConfiguration(OAuthCreationTestCase):
     def test_integration_asked_for_oauth_token_on_empty_password(self):
         with self.mocker.order():
             self.type_when_asked('john.doe', prompt='Your GitHub username: ')
-            self.type_when_asked('', prompt='Your GitHUb password: ', hidden=True)
+            self.type_when_asked('', prompt='Your GitHub password: ', hidden=True)
             self.type_when_asked('94a08da1fecbb6e8b46990538c7b50b2',
                                  prompt='GitHub OAuth token: ')
 
