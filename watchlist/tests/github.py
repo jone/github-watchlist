@@ -16,7 +16,8 @@ def authorization_token_data(token):
         "created_at": "2013-05-11T11:39:44Z",
         "updated_at": "2013-05-11T11:39:44Z",
         "scopes": [
-            "notifications"
+            "notifications",
+            "repo"
             ]
         }
 

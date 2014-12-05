@@ -12,7 +12,7 @@ import requests
 class OAuthTokenCreator(object):
 
     def create_token(self, username, password):
-        request_data = {'scopes': ['notifications'],
+        request_data = {'scopes': ['notifications', 'repo'],
                 'note': 'github-watchlist'}
 
         response = requests.post('https://api.github.com/authorizations',
@@ -66,8 +66,8 @@ class InitializeWatchlistConfiguration(object):
                 '',
                 'For running the watchlist a GitHub OAuth token is required.',
                 'See: http://developer.github.com/v3/oauth/',
-                'The token only uses the scope "notifications" for managing '
-                'your subscriptions.',
+                'The token only uses the scopes "notifications" and "repo" '
+                'for managing your subscriptions.',
                 '',
                 ''))
 
@@ -89,7 +89,8 @@ class InitializeWatchlistConfiguration(object):
                 'In order to automatically create a GitHub OAuth token for later use',
                 'we must ask you once for your github password.',
                 'Your password is not stored and only used for creating an OAuth',
-                'token, granting access to the "notifications" scope to this script.',
+                'token, granting access to the "notifications" and "repo" scopes',
+                ' to this script.',
                 '',
                 'If you whish to create the token by yourself, you will be asked',
                 'for the token if you do not enter a password and just hit enter.',
@@ -103,7 +104,7 @@ class InitializeWatchlistConfiguration(object):
                 'the OAuth token yourself',
                 '',
                 'You can easily create a token using curl:',
-                '  curl -i -u %s -d \'{"scopes": ["notifications"], ' % login + \
+                '  curl -i -u %s -d \'{"scopes": ["notifications", "repo"], ' % login + \
                     '"note": "github-watchlist"}\' ' + \
                     'https://api.github.com/authorizations',
                 '',

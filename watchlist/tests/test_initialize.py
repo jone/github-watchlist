@@ -13,7 +13,7 @@ import tempfile
 class OAuthCreationTestCase(GithubMockTestCase):
 
     def expect_creates_github_authorization_token(self, username, password, token):
-        request_data = {'scopes': ['notifications'],
+        request_data = {'scopes': ['notifications', 'repo'],
                         'note': 'github-watchlist'}
         response_data = authorization_token_data(token)
 
@@ -22,7 +22,7 @@ class OAuthCreationTestCase(GithubMockTestCase):
         self.mocker.result(RequestsResponseStub(text=json.dumps(response_data)))
 
     def expect_unauthorized_exception_with_wrong_credentials(self, username, password):
-        request_data = {'scopes': ['notifications'],
+        request_data = {'scopes': ['notifications', 'repo'],
                         'note': 'github-watchlist'}
         self.request(method='post', url='https://api.github.com/authorizations',
                      auth=(username, password), data=json.dumps(request_data))
