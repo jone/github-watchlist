@@ -163,8 +163,3 @@ License
 retain this notice you can do whatever you want with this stuff. If we
 meet some day, and you think this stuff is worth it, you can buy me a
 beer in return.
-
-
-.. image:: https://cruel-carlota.pagodabox.com/d1d1c2459158d8c198c361c5b8ea74bd
-   :alt: githalytics.com
-   :target: http://githalytics.com/jone/github-watchlist
