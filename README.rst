@@ -7,7 +7,7 @@
 
 When participanting in large organisations on GitHub and watching all
 repositories it's getting noisy. Although the watched repositories are
-`configureable <https://github.com/watching>`_ it is time consuming to
+`configurable <https://github.com/watching>`_ it is time consuming to
 configure hundreds of repositories.
 
 The `github-watchlist` script lets you configure your watched
