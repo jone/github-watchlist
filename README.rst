@@ -27,7 +27,7 @@ Install with `zc.buildout <http://pypi.python.org/pypi/zc.buildout>`_:
 
 .. code:: bash
 
-    $ git clone git://github.com/jone/github-watchlist
+    $ git clone https://github.com/jone/github-watchlist
     $ cd github-watchlist
     $ python bootstrap.py
     $ bin/buildout
